@@ -37,3 +37,21 @@
 - **Naming Convention**: Use lowercase for user-defined variables and uppercase for system/enviornment variables.
 
 ---
+
+## Math
+
+- Bash handles mathematical operations differently from other programming languages. You cannot directly type 30 + 10.
+- The `expr` Command:
+  - **Syntax**: `expr [number or variable] [operator] [number or variable]`
+  - Example for Addition: `expr 30 + 10` will output 40.
+  - Example for Subtraction: `expr 30 - 10` will output 20.
+  - Example for Division: `expr 30 / 10` will output 3.
+  - Example for Multiplication:
+    - The asterisk `*` is a wildcard in Bash.
+    - To perform multiplication, you must escape the asterisk with a backslash `\`.
+    - Example: `expr 100 \* 4` will output 400.
+- You can use variables in your math expressions with expr.
+  - Let's say you have a variable `my_num=100`.
+  - Add a number to a variable: `expr $my_num + 50` will output 150.
+
+---
