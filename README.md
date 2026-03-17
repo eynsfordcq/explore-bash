@@ -55,3 +55,47 @@
   - Add a number to a variable: `expr $my_num + 50` will output 150.
 
 ---
+
+## If Statements
+
+Syntax:
+
+```sh
+if [ condition ]
+then
+    # Commands to execute if true
+else
+    # Commands to execute if false
+fi
+```
+
+### Comparison Operators
+
+**Integer Comparison Operators:**
+
+- `-eq`: Equal to.
+- `-ne`: Not equal to.
+- `-gt`: Greater than.
+- `-ge`: Greater than or equal to.
+- `-lt`: Less than.
+- `-le`: Less than or equal to.
+
+**File and Directory Operators:**
+
+- `-f`: Checks if a file exists and is a regular file.
+- `-d`: Checks if a directory exists.
+
+### Negation
+
+You can reverse any check by placing an exclamation mark ! before it.
+
+```sh
+if [ ! $mynum -eq 200 ]
+then
+    echo "The variable is NOT 200."
+fi
+```
+
+> While this works, it is often cleaner to use the specific operator intended (like -ne for "not equal") instead of negating an "equal" check.
+
+---
