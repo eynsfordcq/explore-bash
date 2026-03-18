@@ -99,3 +99,37 @@ fi
 > While this works, it is often cleaner to use the specific operator intended (like -ne for "not equal") instead of negating an "equal" check.
 
 ---
+
+## Exit Codes
+
+- **General Rule**:
+  - `0`: Success
+  - `1 - 255`: Failure. Any "non-zero" value indicates an error or specific state of termination.
+- **Checking the Exit Code**:
+  - Bash provides a special environment variable, `$?`
+  - It stores the exit code of the _most recently executed command_.
+  - Note: Check or store value of `$?` immediately after the command.
+  - Common mistake: Run failing command, echo something, then check. It returns the exit code of the echo command, masking the failed command.
+- **Custom Exit Code**:
+  - Use the `exit` command to terminate a script and manually specify the code it returns to the system.
+  - This is useful for passing status information to other scripts or monitoring tools.
+
+```sh
+#!/bin/bash
+
+directory="/etc"
+
+if [ -d $directory ]
+then
+    echo "The directory $directory exists."
+    exit 0
+else
+    echo "The directory $directory doesn't exist."
+    exit 199 # Custom error code
+fi
+
+ls -l /nonexistent_directory
+# Output: ls: cannot access '/nonexistent_directory': No such file or directory
+echo $?
+# Output: 1 (non-zero code)
+```
