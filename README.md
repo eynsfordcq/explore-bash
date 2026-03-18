@@ -54,6 +54,22 @@
   - Let's say you have a variable `my_num=100`.
   - Add a number to a variable: `expr $my_num + 50` will output 150.
 
+### Modern Approach: Arithmetic Expansion `$((...))`
+
+- This is the modern, preferred standard. It is a shell built-in, making it significantly faster and cleaner than legacy methods.
+- **Syntax**: `$(( [expression] ))`
+- **Advantages**: No need to escape operators, flexible whitespace, and native variable evaluation.
+- Example for Addition: `echo $((30 + 10))` will output 40.
+- Example for Subtraction: `echo $((30 - 10))` will output 20.
+- Example for Division: `echo $((30 / 10))` will output 3.
+- Example for Multiplication: `echo $((100 * 4))` will output 400. (No backslash escape needed for `*`).
+- **Variables**: You can use variables directly inside the parentheses without the `$` prefix.
+  - Let's say you have a variable `my_num=100`.
+  - Add a number to a variable: `echo $((my_num + 50))` will output 150.
+- **Direct Evaluation**: Use `((...))` (without the leading `$`) to update variables without outputting a result:
+  - Increment: `((my_num++))`
+  - Add and assign: `((my_num += 50))`
+
 ---
 
 ## If Statements
@@ -100,6 +116,21 @@ fi
 
 ---
 
+## While Loops
+
+The "condition" of while loops is the same as if conditions.
+
+Syntax:
+
+```sh
+while [ condition ]
+do
+    # Commands to execute
+done
+```
+
+---
+
 ## Exit Codes
 
 - **General Rule**:
@@ -133,3 +164,5 @@ ls -l /nonexistent_directory
 echo $?
 # Output: 1 (non-zero code)
 ```
+
+---
