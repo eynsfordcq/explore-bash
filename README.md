@@ -131,6 +131,32 @@ done
 
 ---
 
+## For Loops
+
+Syntax:
+
+```sh
+for variable in set
+do
+    command1
+    command2
+done
+```
+
+### Range Notation
+
+`{start..end}`
+
+```sh
+for n in {1..10}
+do
+    echo $n
+    sleep 1
+done
+```
+
+---
+
 ## Exit Codes
 
 - **General Rule**:
@@ -163,6 +189,36 @@ ls -l /nonexistent_directory
 # Output: ls: cannot access '/nonexistent_directory': No such file or directory
 echo $?
 # Output: 1 (non-zero code)
+```
+
+---
+
+## Script Locations
+
+Storing scripts in your ~/home directory works for personal use, but it has several drawbacks:
+
+- It's not accessible by other users
+- You have to type the full path
+- As the number of scripts grow, a central system location is more managable
+
+### The Filesystem Hierarchy Standard (FHS)
+
+The FHS defines the purpose of each directory in a Linux distribution. According to this standard:
+
+- `/usr/local/bin`: This is the ideal location for locally installed programs and scripts used by system administrators.
+- Benefits: It is _shared_ across the system, and most Linux distributions include this directory in the default command search path.
+
+### Setting Up
+
+- First store the script in `/usr/local/bin`
+- Optional but recommended: remove `.sh` extension. It's not required because the shebang `#!/bin/bash` specifies the interpreter. You can just run the script by just typing the script name.
+- Change ownership to _root_ so that standard users cannot modify system-level scripts.
+- `$PATH` variable allows the shell to know where to find the script command without a full path.
+  - Use `which` command to see which file is being executed.
+  - To add a custom directory to your search path, use the export command
+
+```sh
+export PATH=/your/custom/directory:$PATH
 ```
 
 ---
