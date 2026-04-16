@@ -222,3 +222,42 @@ export PATH=/your/custom/directory:$PATH
 ```
 
 ---
+
+## Data Streams
+
+Every command in Linux interacts with three primary data streams, identified by numeric file descriptors:
+
+- **Standard Output (stdout) - Descriptor 1:** The default stream for successful command results.
+- **Standard Error (stderr) - Descriptor 2:** The stream used for error messages when a command fails.
+- **Standard Input (stdin) - Descriptor 0:** The stream used to accept input from a user or another process.
+
+While both stdout and stderr usually print to the screen, they are distinct streams.
+
+```sh
+# redirect the stderr to null (means ignore it)
+# we will see no errors at all 
+find /etc -type f 2> /dev/null
+
+# redirect stdout
+# use > or 1> 
+# we see only errors
+find /etc -type f 1> /dev/null
+
+# redirect both streams
+# use $> 
+find /etc -type f &> /dev/null
+
+# splitting streams
+find /etc -type f 1> success.log 2> error.log
+```
+
+### Standard Input (stdin)
+
+- **stdin** is the data stream that feeds information into a program
+- By default, it waits for the user input.
+- You can use **pipes** to take the **stdout** of one command and "pipe" it to the **stdin** of the other
+  - Example: `ls | grep "txt"`
+  - `ls` outputs a list, `grep` takes the list as stdin and searches it.
+- You can also ask a program to take its stdin from a file using **redirection**
+  - Example: `python3 script.py < data.txt`
+  - The script reads data.txt as if you were typing its contents manually.
